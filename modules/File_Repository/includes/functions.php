@@ -648,12 +648,15 @@ function _collect_iteminfo($id,$isfile=false)
 
 	list( $total_attach_files ) = $db->sql_ufetchrow( "select count(*) from `"._FILE_REPOSITORY_FILES."` where `did`='".$id."'" );
 
+
+    $www = '<a href="'.$row['author_website'].'" target="_blank" alt="'.$lang_new[$module_name]['AUTHOR_WEBSITE'].'" title="'.$lang_new[$module_name]['AUTHOR_WEBSITE'].'"><span class="dm-sprite www"></span></a>';
+	 
 	if($row['author'])
 		$iteminfo['author']			= (!defined('NUKE_EVO')) ? $row['author'] : UsernameColor($row['author']);
 	else
 		$iteminfo['author']			= $lang_new[$module_name]['NA'];
 	$iteminfo['author_email'] 	= $row['author_email'];
-	$iteminfo['author_www'] 	= ($row['author_website']) ? '<a href="http://'.str_replace('http://','',$row['author_website']).'" target="_blank" alt="'.$lang_new[$module_name]['AUTHOR_WEBSITE'].'" title="'.$lang_new[$module_name]['AUTHOR_WEBSITE'].'"><span class="dm-sprite www"></span></a><span style="margin-left: 5px;">'.$iteminfo['author'].'</span>' : $iteminfo['author'];	
+	$iteminfo['author_www'] 	= ($row['author_website']) ? $www.'</a><span style="margin-left: 5px;">'.$iteminfo['author'].'</span>' : $iteminfo['author'];	
 	$iteminfo['cid'] 			= $row['cid'];
 	$iteminfo['color'] 			= $row['color'];
 	$iteminfo['comments']		= $row['comments'];
