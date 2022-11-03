@@ -1,14 +1,10 @@
 <a href="https://www.php-nuke-titanium.86it.us" rel="nofollow"><img src="/images/github/github_rip_open2.png" alt="PHP-NUke Titanium" style="max-width: 100%;"></a>
 
-<h2>Changes in PHP-Nuke Titanium v4.0.3</h2>
-<p>Support Website https://www.php-nuke-titanium.86it.us <-(This Code Running Live) SIGN UP AND CHECK IT OUT!!!</p>
-
-
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fernestbuffington%2FPHP-Nuke.Titanium.Dev.4.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fernestbuffington%2FPHP-Nuke.Titanium.Dev.4?ref=badge_shield)  [![Codacy Badge](https://app.codacy.com/project/badge/Grade/e5300f0dccdb4bcc9b7bdbc5d6e65f50)](https://www.codacy.com/gh/ernestbuffington/PHP-Nuke.Titanium.Dev.4/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ernestbuffington/PHP-Nuke.Titanium.Dev.4&amp;utm_campaign=Badge_Grade)
 
-<h2>PHP-Nuke Titanium v4.0.3 2022 Nightly Build Repo</h2>
+<h2>The NukeScripts.Net Developer Site</h2>
 
-<p>This code is running live at https://www.php-nuke-titanium.86it.us</p>
+<p>This code is running live at https://www.nukescripts.86it.us</p>
 
 <h2>PHP-Nuke Titanium v4.0.3 Core Developers</h2>
 
@@ -38,6 +34,9 @@
 	<li>UniKCode</li>
 	<li>Cobalt74</li>
 </ul>
+
+<h2>Support for PHP-Nuke Titanium v4.0.3</h2>
+<p>Support Website https://www.php-nuke-titanium.86it.us <-( Sign Up For Support )</p>
 
 <h2>PHP-Nuke Titanium v4.0.3 Flash Game, and Movie Support for 2022</h2>
 
@@ -120,7 +119,7 @@ There have been existing efforts to re-implement the Flash Player, including Gna
 <ul>
 	<li>Apache/2.4.54</li>
 	<li>MySQL Server Version: 5.5.5-10.2.44-MariaDB (MariaDB Server) The fastest on the planet!</li>
-	<li>PHP 7.4.33 (we are working on a version for PHP 8)</li>
+	<li>PHP 7.4.32 (we are working on a version for PHP 8)</li>
 	<li>cURL&nbsp;7.84.0</li>
 	<li>GD Support bundled (2.1.0 compatible)</li>
 	<li>Client API library version (mysqlnd/mysqli 7.4.30)</li>
@@ -176,16 +175,6 @@ If you need help with an install do not hesitate to submit a request by clicking
 
 <p><strong>The PHP-Nuke Titanium Team </strong>(This is the US Support Team)<br />
 <a href="https://php-nuke-titanium.86it.us/index.php">http://php-nuke-titanium.86it.us/index.php</a></p>
-
-<h2>GNU GENERAL PUBLIC LICENSE Version 2, June 1991</h2>
-
-<p>PHP-Nuke Titanium&nbsp;is licensed as free software under the GNU general public license for non-profit use, because there are so many people to include in the license please refer to the licenses.pdf file. Re-selling or direct&nbsp;marketing this software for commercial use is forbidden by the GNU general public license, the result of doing so can lead to legal action been taken against you so please ensure to read and understand the license before using this software for development and personal use.</p>
-
-<p>The skinny on this jargon is to do what you want with the software and always give full credit to the original copyright owners. You can sell a modified version of this software but you must always give credit to the original copyright owners. I suggest you do some research and find out who owns PHP-Nuke. The Original Copyright belonged to&nbsp;Francisco Burzi who added to a version of&nbsp;Thatware and the copyright owner for that software is&nbsp;David Norman. This is Open-Source software and should be treated as such.</p>
-
-<h2>Warranty</h2>
-
-<p>Because PHP-Nuke Titanium is licensed free of charge, there is no warranty for the package, to the extent permitted by applicable law. Except when otherwise stated in writing, the PHP-Nuke Titanium Team provides PHP-Nuke Titanium &quot;as is&quot; without warranty of any kind, either expressed or implied, including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose. The entire risk as to the quality and performance of the package is with you. Should the package prove defective, you assume the cost of all necessary servicing, repair, or correction.</p>
 
 ## License
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fernestbuffington%2FPHP-Nuke.Titanium.Dev.4.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fernestbuffington%2FPHP-Nuke.Titanium.Dev.4?ref=badge_large)
