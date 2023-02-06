@@ -22,6 +22,7 @@
 
 global $admin_file, $sitename, $nukeurl, $admlang;
 
+define_once("_ALL","All");
 /**
  * Language Defines: Live Feed
  * @since 2.0.9d
@@ -385,7 +386,7 @@ $admlang['global']['is_out_of_date']	= 'Out of date - Update Required';
 $admlang['global']['who_view'] 			= 'Who can View This';
 $admlang['global']['admins_only']		= 'Administrators Only';
 $admlang['global']['users_only'] 		= 'Registered Users Only';
-$admlang['global']['guests_only'] 		= 'Anonymous Users Only';
+$admlang['global']['guests_only'] 		= 'Personal Users Only';
 $admlang['global']['all_visitors'] 		= 'All Visitors';
 $admlang['global']['groups_only'] 		= 'Groups Only';
 

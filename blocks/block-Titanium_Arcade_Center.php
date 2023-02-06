@@ -28,14 +28,15 @@
 	  Badges Mod                               v1.0.0       10/27/2022
  ************************************************************************/
 
-if(!defined('NUKE_EVO')) exit;
+if (!defined('NUKE_EVO')) {
+    exit;
+}
 
 define("_TOPGAMERS", "The Top Players");
 define("_VICTOIRES", "NUMBER OF WINS");
 
 define('IN_PHPBB', true);
 include_once('includes/functions.php');
-define('IN_PHPBB', false);
 
 global $prefix, $user_prefix, $db, $ThemeSel, $board_config;
 
@@ -145,6 +146,7 @@ if ($top) {
     
 	$content .= "<br /> <span class=\"w3-tag w3-round w3-blue\">"._VICTOIRES."</span> <span class=\"w3-badge w3-blue\"><strong>$nbvictprec</strong></span> <br /><br />\n";
 
+    $count = $count ?? '0';
     $count = $count + 1;
   }
 
@@ -163,19 +165,21 @@ if ($top) {
   
   $content .= "<a href=\"modules.php?name=Forums&amp;file=arcade\"><img width=\"269\" src=\"images/arcade_mod/arcade_logo.png\" border= \"0\"></a></center><br />\n";
   
-  if (is_admin())
-  $content .= "<font class=\"arcade-admin-login\">&nbsp;YOU ARE CURRENTLY LOGGED IN AS ADMIN!&nbsp;</font></br>";
-  
-  $content .= "<strong>".$row['game_name']."</strong><br />\n";
+  if (is_admin()) {
+        $content .= "<font class=\"arcade-admin-login\">&nbsp;YOU ARE CURRENTLY LOGGED IN AS ADMIN!&nbsp;</font></br>";
+    }
+
+    $content .= "<strong>".$row['game_name']."</strong><br />\n";
   
   $content .= "<a href=\"modules.php?name=Forums&amp;file=games&amp;gid=".$row['game_id']."\"><img class=\"rounded-corners-arcade\" width=\"70\" 
   src=\"modules/Forums/games/pics/".$row['game_pic']."\" border= \"0\" alt=\"".$row['game_name']."\"></a><br /> \n";
 
-  if (is_admin())
-  $content .= "</br><a class=\"arcade-admin-font rounded-corners-gamepic tooltip-html-side-interact tooltipstered\" 
-  title=\"Only Admins See This Link\" href=\"modules/Forums/admin/arcade_elmt.php?mode=edit&amp;game_id=".$row['game_id']."\" target=\"_blank\">&nbsp;EDIT CURRENT RANDOM GAME SETTINGS&nbsp;</a>";
-  
-  $content .= "</br>High Score set by<br /><strong><a href=\"modules.php?name=Forums&amp;file=statarcade&amp;uid=".$row['game_highuser']."\"><div class=\"w3-tag w3-round w3-green\" style=\"padding:3px\">\n";
+  if (is_admin()) {
+        $content .= "</br><a class=\"arcade-admin-font rounded-corners-gamepic tooltip-html-side-interact tooltipstered\" 
+  title=\"Only Admins See This Link\" href=\"modules/Forums/admin/arcade_elmt.php?mode=edit&amp;game_id=" . $row['game_id'] . "\" target=\"_blank\">&nbsp;EDIT CURRENT RANDOM GAME SETTINGS&nbsp;</a>";
+    }
+
+    $content .= "</br>High Score set by<br /><strong><a href=\"modules.php?name=Forums&amp;file=statarcade&amp;uid=".$row['game_highuser']."\"><div class=\"w3-tag w3-round w3-green\" style=\"padding:3px\">\n";
   $content .= "<div class=\"w3-tag w3-round w3-green w3-border w3-border-white\"><i class=\"bi bi-award\"></i>$randomUser</div>\n";
   $content .= "</div></a> </strong>\n"; 
   $content .= "<br /><br />\n";
@@ -200,11 +204,12 @@ if ($top) {
   
   $lastgamepic = $row['game_pic'];
 
-  if (is_admin())
-  $content .= "</br><a class=\"arcade-admin-font rounded-corners-gamepic tooltip-html-side-interact tooltipstered\" 
-  title=\"Only Admins See This Link\" href=\"modules/Forums/admin/arcade_elmt.php?mode=edit&amp;game_id=".$row['game_id']."\" target=\"_blank\">&nbsp;EDIT GAME SETTINGS&nbsp;</a>";
+  if (is_admin()) {
+            $content .= "</br><a class=\"arcade-admin-font rounded-corners-gamepic tooltip-html-side-interact tooltipstered\" 
+  title=\"Only Admins See This Link\" href=\"modules/Forums/admin/arcade_elmt.php?mode=edit&amp;game_id=" . $row['game_id'] . "\" target=\"_blank\">&nbsp;EDIT GAME SETTINGS&nbsp;</a>";
+        }
 
-  $content .= "<div class=\"w3-card-2\"><a href=\"modules.php?name=Forums&amp;file=games&amp;gid=$lastgameid\"><img class=\"rounded-corners-arcade\" 
+        $content .= "<div class=\"w3-card-2\"><a href=\"modules.php?name=Forums&amp;file=games&amp;gid=$lastgameid\"><img class=\"rounded-corners-arcade\" 
   width=\"70\" src=\"modules/Forums/games/pics/$lastgamepic\" border= \"0\" alt=\"$lastGame\"><br /><strong><span class=\"w3-tag\">$lastGame</span></strong></a></div><br /><br />\n";
   
 
@@ -344,25 +349,46 @@ if ($whos_playing)
   $content .= "<th class=\"arcadeThHead\" width=\"100%\" colspan=\"2\" align=\"center\"><strong>Who's Playing</strong></th>\n";
   $content .= "</tr>\n";
 
-  $sql = "SELECT u.username, u.user_id, u.user_level, user_allow_viewonline, g.game_name, g.game_id FROM ".$prefix."_bbgamehash gh LEFT JOIN ".$prefix."_bbsessions s 
-  ON gh.user_id = s.session_user_id LEFT JOIN ".$user_prefix."_users u 
+  $sql = "SELECT u.username, 
+                 u.user_id, 
+				 u.user_level, 
+				 user_allow_viewonline, 
+				 g.game_name, 
+				 g.game_id 
+				 
+  FROM ".$prefix."_bbgamehash gh 
+  
+  LEFT JOIN ".$prefix."_bbsessions s 
+  
+  ON gh.user_id = s.session_user_id 
+  
+  LEFT JOIN ".$user_prefix."_users u 
+  
   ON gh.user_id = u.user_id LEFT 
+  
   JOIN ".$prefix."_bbgames g 
+  
   ON gh.game_id = g.game_id WHERE gh.hash_date >= s.session_time AND (" . time() . "- gh.hash_date <= 300) 
+  
   ORDER BY gh.hash_date DESC";
 
   $result = $db->sql_query($sql);
 
   while ($row = $db->sql_fetchrow($result)) {
-    $players[] = $row;
+	$players[] = $row;
   }
-
-  $nbplayers = count($players);
+  
+  if (!empty($players) && $players != 0): 
+    if(!isset($nbplayers))
+	$nbplayers = 0;
+	$nbplayers = count(array($players));
+  endif;
+  
   $listeid = array();
   $games_players = array();
   $games_names = array();
 
-  if ($nbplayers != 0) 
+  if (!empty($nbplayers) && $nbplayers != 0) 
   {
     $content .="<tr>\n";
     $content .="<td class=\"arcadeRow1\"><strong>Game</strong></td>\n";
@@ -417,4 +443,4 @@ else
    # PADDING AT BOTTOM OF TABLE
    $content .= '<div align="center" style="padding-top:23px;"></div>'; 
 }
-?>
+

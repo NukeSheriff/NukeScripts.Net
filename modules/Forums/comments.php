@@ -15,14 +15,20 @@
 /*****[CHANGES]**********************************************************
 -=[Base]=-
       Nuke Patched                             v3.1.0       09/20/2005
+	  Titanium Patched                         v4.0.3       01/26/2023
+-=[Applied Rules]=-
+ * DirNameFileConstantToDirConstantRector
+ * ReplaceHttpServerVarsByServerRector (https://blog.tigertech.net/posts/php-5-3-http-server-vars/)
+ * LongArrayToShortArrayRector
+ * NullToStrictStringFuncCallArgRector	  
  ************************************************************************/
 
 if (!defined('MODULE_FILE')) {
     die('You can\'t access this file directly...');
 }
 
-if ($popup != "1"){
-    $module_name = basename(dirname(__FILE__));
+if (!isset($popup)){
+    $module_name = basename(__DIR__);
     require("modules/".$module_name."/nukebb.php");
 }
 else
@@ -48,7 +54,7 @@ init_userprefs($userdata);
 //
 include('includes/functions_arcade.' . $phpEx);
 
-$header_location = ( @preg_match("/Microsoft|WebSTAR|Xitami/", getenv("SERVER_SOFTWARE")) ) ? "Refresh: 0; URL=" : "Location: ";
+$header_location = ( preg_match("/Microsoft|WebSTAR|Xitami/", getenv("SERVER_SOFTWARE")) ) ? "Refresh: 0; URL=" : "Location: ";
 
 if ( !$userdata['session_logged_in'] )
 {
@@ -61,13 +67,14 @@ if ( !$userdata['session_logged_in'] )
 generate_smilies('inline', PAGE_POSTING);
 include("includes/page_header.php");
 
-$mode = $HTTP_GET_VARS['mode'];
+$mode = $_GET['mode'] ?? '';
 
 if($mode == "z")
 {
-$user_allow_arcadepm = intval($HTTP_POST_VARS['user_allow_arcadepm']);
+  $user_allow_arcadepm = (int) $_POST['user_allow_arcadepm'];
 
-$sql = "UPDATE " . USERS_TABLE. " SET user_allow_arcadepm = '$user_allow_arcadepm' WHERE user_id =  " . $userinfo['user_id'];
+
+  $sql = "UPDATE " . USERS_TABLE. " SET user_allow_arcadepm = '$user_allow_arcadepm' WHERE user_id =  " . $userinfo['user_id'];
         if( !($result = $db->sql_query($sql)))
             {
             message_die(GENERAL_ERROR, "Error updating selection", '', __LINE__, __FILE__, $sql);
@@ -80,9 +87,9 @@ $sql = "UPDATE " . USERS_TABLE. " SET user_allow_arcadepm = '$user_allow_arcadep
 //Comment update section
 if($mode == "update")
     {
-            $game_id = intval($HTTP_POST_VARS['comment_id']);
-            $comment_text = str_replace("\'","''",$HTTP_POST_VARS['message']);
-            $comment_text = preg_replace(array('#&(?!(\#[0-9]+;))#', '#<#', '#>#'), array('&amp;', '&lt;', '&gt;'), $comment_text);
+            $game_id = intval($_POST['comment_id']);
+            $comment_text = str_replace("\'","''",(string) $_POST['message']);
+            $comment_text = preg_replace(['#&(?!(\#[0-9]+;))#', '#<#', '#>#'], ['&amp;', '&lt;', '&gt;'], $comment_text);
 
             //Checks to make sure the user has privledge to enter highscores.
             //This query checks the user_id stored in the users cookie and in the database.
@@ -128,10 +135,9 @@ if($mode == "submit")
 {
     global $userinfo;
 
-	$template->set_filenames(array(
-                                'body' => 'comments_body.tpl'));
+	$template->set_filenames(['body' => 'comments_body.tpl']);
 
-    $game_id = intval($HTTP_POST_VARS['comment_id']);
+    $game_id = intval($_POST['comment_id']);
 
     //Gets comments from database
     $sql = "SELECT g.game_id, g.game_name, c.* FROM " . GAMES_TABLE. " g LEFT JOIN " . COMMENTS_TABLE . " c ON g.game_id = c.game_id WHERE g.game_id = $game_id";
@@ -143,16 +149,7 @@ if($mode == "submit")
 
     $row = $db->sql_fetchrow($result);
 
-    $template->assign_vars(array(
-            'L_ADD_EDIT_COMMENTS' => $lang['add_edit_comments'],
-            'NAV_DESC' => '<a class="nav" href="' . append_sid("arcade.$phpEx") . '">' . $lang['arcade'] . '</a> ' ,
-            'GAME_ID' => $row['game_id'],
-            'L_GAME_NAME' => $lang['game_name'],
-            'GAME_NAME' => '<a href="' . append_sid("games.$phpEx?gid=" . $row['game_id']) . '">' . $row['game_name'] . '</a>',
-            'L_ENTER_COMMENT' => $lang['enter_comment'],
-            'COMMENTS' => $row['comments_value'],
-            'S_ACTION' => append_sid("comments?mode=update"),
-            ));
+    $template->assign_vars(['L_ADD_EDIT_COMMENTS' => $lang['add_edit_comments'], 'NAV_DESC' => '<a class="nav" href="' . append_sid("arcade.$phpEx") . '">' . $lang['arcade'] . '</a> ', 'GAME_ID' => $row['game_id'], 'L_GAME_NAME' => $lang['game_name'], 'GAME_NAME' => '<a href="' . append_sid("games.$phpEx?gid=" . $row['game_id']) . '">' . $row['game_name'] . '</a>', 'L_ENTER_COMMENT' => $lang['enter_comment'], 'COMMENTS' => $row['comments_value'], 'S_ACTION' => append_sid("comments?mode=update")]);
 
     //Gets Avatar based on user settings and other user stats
     $sql = "SELECT username, user_avatar_type, user_allowavatar, user_avatar FROM " . USERS_TABLE . " WHERE user_id = " . $userinfo['user_id'] ;
@@ -183,11 +180,7 @@ if($mode == "submit")
        }
 
     }
-        $template->assign_vars(array(
-                'L_QUICK_STATS' => $lang['quick_stats'],
-            'USER_AVATAR' => '<a href="modules.php?name=Forums&amp;file=profile&amp;mode=viewprofile&amp;u=' . $userinfo['user_id'] . '">' . $avatar_img . '</a>',
-            'USERNAME' => '<a href="' . append_sid("statarcade.$phpEx?uid=" . $userinfo['user_id'] ) . '" class="genmed">' . $row['username'] . '</a> ',
-            ));
+        $template->assign_vars(['L_QUICK_STATS' => $lang['quick_stats'], 'USER_AVATAR' => '<a href="modules.php?name=Forums&amp;file=profile&amp;mode=viewprofile&amp;u=' . $userinfo['user_id'] . '">' . $avatar_img . '</a>', 'USERNAME' => '<a href="' . append_sid("statarcade.$phpEx?uid=" . $userinfo['user_id'] ) . '" class="genmed">' . $row['username'] . '</a> ']);
 
     //Gets some user stats to display on the comment submission page
     $sql ="SELECT s.score_set, s.game_id, g.game_name FROM " . SCORES_TABLE. " s LEFT JOIN " . USERS_TABLE. " u ON s.user_id = u.user_id LEFT JOIN " . GAMES_TABLE. " g ON s.game_id = g.game_id 
@@ -215,9 +208,7 @@ if($mode == "submit")
     $highscore_date = create_date( $board_config['default_dateformat'] , $row['game_highdate'] , $board_config['board_timezone'] );
     $highscore_game_name = '<a href="' . append_sid("games.$phpEx?gid=" . $row['game_id']) . '">' . $row['game_name'] . '</a>';
 
-        $template->assign_vars(array(
-                    'L_QUICK_STATS_MESSAGE' => sprintf($lang['quick_stats_message'], $score_count, $fav_game_name, $times_played, $highscore_date, $highscore_game_name),
-            ));
+        $template->assign_vars(['L_QUICK_STATS_MESSAGE' => sprintf($lang['quick_stats_message'], $score_count, $fav_game_name, $times_played, $highscore_date, $highscore_game_name)]);
 
 //
 // Generate the page end
@@ -228,8 +219,7 @@ include("includes/page_tail.php");
 
 global $userinfo;
 
-$template->set_filenames(array(
-   'body' => 'comments_select_body.tpl'));
+$template->set_filenames(['body' => 'comments_select_body.tpl']);
 
 $link    = "comments";
 $uid = $userinfo['user_id'];
@@ -262,27 +252,14 @@ $row = $db->sql_fetchrow($result);
 $user_allow_arcadepm_yes = ( $row['user_allow_arcadepm'] ) ? "checked=\"checked\"" : "";
 $user_allow_arcadepm_no = ( !$row['user_allow_arcadepm'] ) ? "checked=\"checked\"" : "";
 
-$template->assign_vars(array(
-            'NAV_DESC' => '<a class="nav" href="' . append_sid("arcade.$phpEx") . '">' . $lang['arcade'] . '</a> '
-            ));
+$template->assign_vars(['NAV_DESC' => '<a class="nav" href="' . append_sid("arcade.$phpEx") . '">' . $lang['arcade'] . '</a> ']);
 if ($score_count != 0)
 {
-$template->assign_block_vars('comment_select',array(
-            'NAV_DESC' => '<a class="nav" href="' . append_sid("arcade.$phpEx") . '">' . $lang['arcade'] . '</a> ' ,
-            'HIGHSCORE_COUNT' => $score_count,
-            'HIGHSCORE_SELECT' => $select_highscore,
-            'S_ACTION' => $submit,
-            ));
+$template->assign_block_vars('comment_select',['NAV_DESC' => '<a class="nav" href="' . append_sid("arcade.$phpEx") . '">' . $lang['arcade'] . '</a> ', 'HIGHSCORE_COUNT' => $score_count, 'HIGHSCORE_SELECT' => $select_highscore, 'S_ACTION' => $submit]);
 
 }
 
-$template->assign_block_vars('comment_settings',array(
-            'S_ACTION_PM' => $z,
-            'L_YES' => $lang['Yes'],
-            'L_NO' => $lang['No'],
-            'USER_ALLOW_ARCADEPM_YES' => $user_allow_arcadepm_yes,
-            'USER_ALLOW_ARCADEPM_NO' => $user_allow_arcadepm_no
-            ));
+$template->assign_block_vars('comment_settings',['S_ACTION_PM' => $z, 'L_YES' => $lang['Yes'], 'L_NO' => $lang['No'], 'USER_ALLOW_ARCADEPM_YES' => $user_allow_arcadepm_yes, 'USER_ALLOW_ARCADEPM_NO' => $user_allow_arcadepm_no]);
 
 //
 // Generate the page end
@@ -290,4 +267,4 @@ $template->assign_block_vars('comment_settings',array(
 $template->pparse('body');
 include("includes/page_tail.php");
 
-?>
+

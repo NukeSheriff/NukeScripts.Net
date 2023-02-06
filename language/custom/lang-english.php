@@ -119,7 +119,7 @@ define("_CANNOTOPENFILE", "Cannot open file (%s)");
 define("_CANNOTWRITETOFILE", "Cannot write to file (%s)");
 define("_CANNOTCLOSEFILE", "Cannot close file (%s)");
 define("_SITECACHED", "This site is cached.");
-define("_UPDATECACHE", "Click here to update the cache.");
+define("_UPDATECACHE", "CLICK HERE TO UPDATE CACHE");
 /*****[END]********************************************
  [ Other:   Caching System                     v1.0.0 ]
  ******************************************************/
@@ -254,7 +254,6 @@ define("VALIDATE_EMAIL","email");
 define("VALIDATE_URL","URL");
 define("VALIDATE_INT","Number");
 define("VALIDATE_FLOAT","Number");
-define("VALIDATE_URL","URL");
 define("VALIDATE_SHORT","short");
 define("VALIDATE_LONG","long");
 define("VALIDATE_SMALL","small");

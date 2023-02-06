@@ -1,6 +1,6 @@
 <?php
 /*=======================================================================
- PHP-Nuke Titanium | Nuke-Evolution Basic : Enhanced and Advanced
+ PHP-Nuke Titanium v4.0.3 : Enhanced PHP-Nuke Web Portal System
  =======================================================================*/
 
 /************************************************************************/
@@ -31,12 +31,12 @@
 /*****[CHANGES]**********************************************************
 -=[Base]=-
       Nuke Patched                             v3.1.0       06/26/2005
+	  Titanium Patched                         v3.0.0       08/26/2019
 -=[Mod]=-
       Advanced Username Color                  v1.0.5       07/29/2005
       Blog BBCodes                             v1.0.0       08/19/2005
       Display Topic Icon                       v1.0.0       06/27/2005
       Display Writes                           v1.0.0       10/14/2005
-	  Titanium Patched                         v3.0.0       08/26/2019
  ************************************************************************/
  
 if (!defined('MODULE_FILE')) die('You can\'t access this file directly...');
@@ -45,23 +45,20 @@ global $cookie, $userinfo, $theme_name;
 
 $optionbox = "";
 
-$module_name = basename(dirname(__FILE__));
+$module_name = basename(__DIR__);
 
 get_lang($module_name);
 
 // we only show the left blocks, else the page gets messed up
 $showblocks = 1;
 
-if (isset($sid)) 
-$sid = intval($sid); 
-else 
-$sid = ""; 
+$sid = isset($sid) ? (int) $sid : ""; 
 
-if (stristr($_SERVER['REQUEST_URI'],"mainfile")) 
-redirect("modules.php?name=$module_name&file=article&sid=$sid");
-else
-if (empty($sid) && !isset($tid)) 
-redirect("index.php");
+if (stristr((string) $_SERVER['REQUEST_URI'],"mainfile")) {
+    redirect("modules.php?name=$module_name&file=article&sid=$sid");
+} elseif (empty($sid) && !isset($tid)) {
+    redirect("index.php");
+}
 
 if(is_user()) 
 {
@@ -74,10 +71,10 @@ if(is_user())
 	if(!isset($thold)) 
 	$thold = $userinfo['thold']; 
     
-	$db->sql_query("UPDATE ".$user_prefix."_users SET umode='$mode', uorder='$order', thold='$thold' where user_id=".intval($cookie[0]));
+	$db->sql_query("UPDATE ".$user_prefix."_users SET umode='$mode', uorder='$order', thold='$thold' where user_id=".(int) $cookie[0]);
 }
 
-if ($op == "Reply") 
+if (isset($op) && $op == "Reply") 
 {
     $display = "";
     
@@ -93,7 +90,7 @@ if ($op == "Reply")
 	redirect("modules.php?name=$module_name&file=comments&op=Reply&pid=0&sid=".$sid.$display);
 }
 
-$result = $db->sql_query("select catid, aid, datePublished, dateModified, title, counter, hometext, bodytext, topic, informant, notes, acomm, haspoll, pollID, score, ratings, ticon FROM ".$prefix."_stories where sid='$sid'");
+$result = $db->sql_query("select catid, aid, datePublished, dateModified, title, counter, hometext, bodytext, topic, informant, notes, acomm, haspoll, pollID, score, ratings, ticon FROM ".$prefix."_blogs where sid='$sid'");
 
 $numrows = $db->sql_numrows($result);
 
@@ -102,40 +99,40 @@ redirect("index.php");
 
 $row = $db->sql_fetchrow($result);
 $db->sql_freeresult($result);
-$aaid = stripslashes($row['aid']);
-$catid = intval($row["catid"]);
+$aaid = stripslashes((string) $row['aid']);
+$catid = (int) $row["catid"];
 
 $time = $row["datePublished"];
 $modified = $row["dateModified"];
 
-$title = stripslashes(check_html($row["title"], "nohtml"));
+$title = stripslashes((string) check_html($row["title"], "nohtml"));
 $counter = $row["counter"];
 
 /*****[BEGIN]******************************************
  [ Mod:     Blog BBCodes                       v1.0.0 ]
  ******************************************************/
-$hometext = decode_bbcode(set_smilies(stripslashes($row["hometext"])), 1, true);
-$bodytext = decode_bbcode(set_smilies(stripslashes($row["bodytext"])), 1, true);
+$hometext = decode_bbcode(set_smilies(stripslashes((string) $row["hometext"])), 1, true);
+$bodytext = decode_bbcode(set_smilies(stripslashes((string) $row["bodytext"])), 1, true);
 /*****[END]********************************************
  [ Mod:     Blog BBCodes                       v1.0.0 ]
  ******************************************************/
-$hometext = evo_img_tag_to_resize($hometext);
-$bodytext = evo_img_tag_to_resize($bodytext);
+$hometext = img_tag_to_resize($hometext);
+$bodytext = img_tag_to_resize($bodytext);
 
-$topic = intval($row["topic"]);
-$informant = stripslashes($row["informant"]);
-$notes = stripslashes($row["notes"]);
-$acomm = intval($row["acomm"]);
-$haspoll = intval($row["haspoll"]);
-$pollID = intval($row["pollID"]);
-$score = intval($row["score"]);
-$ratings = intval($row["ratings"]);
-$topic_icon = intval($row["ticon"]);
+$topic = (int) $row["topic"];
+$informant = stripslashes((string) $row["informant"]);
+$notes = stripslashes((string) $row["notes"]);
+$acomm = (int) $row["acomm"];
+$haspoll = (int) $row["haspoll"];
+$pollID = (int) $row["pollID"];
+$score = (int) $row["score"];
+$ratings = (int) $row["ratings"];
+$topic_icon = (int) $row["ticon"];
 
 if (empty($aaid)) 
 redirect("modules.php?name=".$module_name);
 
-$db->sql_query("UPDATE ".$prefix."_stories SET counter=counter+1 where sid='$sid'");
+$db->sql_query("UPDATE ".$prefix."_blogs SET counter=counter+1 where sid='$sid'");
 
 $artpage = 1;
 
@@ -147,21 +144,15 @@ $artpage = 0;
 
 formatTimestamp($time);
 
-$title = stripslashes(check_html($title, "nohtml"));
-$counter = stripslashes($counter);
-$hometext = stripslashes($hometext);
-$bodytext = stripslashes($bodytext);
+$title = stripslashes((string) check_html($title, "nohtml"));
+$counter = stripslashes((string) $counter);
+$hometext = stripslashes((string) $hometext);
+$bodytext = stripslashes((string) $bodytext);
 $notes = stripslashes($notes);
 
-if (!empty($notes)) 
-$notes = "<br /><br /><strong>"._NOTE."</strong> <i>$notes</i>";
-else 
-$notes = "";
+$notes = empty($notes) ? "" : "<br /><br /><strong>"._NOTE."</strong> <i>$notes</i>";
 
-if(empty($bodytext)) 
-$bodytext = "$hometext$notes";
-else 
-$bodytext = "$hometext<br /><br />$bodytext$notes";
+$bodytext = empty($bodytext) ? "$hometext$notes" : "$hometext<br /><br />$bodytext$notes";
 
 if(empty($informant)) 
 $informant = $anonymous;
@@ -169,8 +160,8 @@ $informant = $anonymous;
 getTopics($sid);
 
 if ($catid != 0) {
-    $row2 = $db->sql_fetchrow($db->sql_query("select title from ".$prefix."_stories_cat where catid='$catid'"));
-    $title1 = stripslashes(check_html($row2["title"], "nohtml"));
+    $row2 = $db->sql_fetchrow($db->sql_query("select title from ".$prefix."_blogs_cat where catid='$catid'"));
+    $title1 = stripslashes((string) check_html($row2["title"], "nohtml"));
     $title = "<a href=\"modules.php?name=$module_name&amp;file=categories&amp;op=newindex&amp;catid=$catid\"><font class=\"storycat\">$title1</font></a>: $title";
 }
 
@@ -183,15 +174,12 @@ themearticle($aaid, $informant, $datetime, $modified, $title, $counter, $bodytex
 
 include_once("modules/$module_name/associates.php");
 
-if (((empty($mode) OR ($mode != "nocomments")) OR ($acomm == 0)) OR ($articlecomm == 1)) 
-@include_once("modules/$module_name/comments.php");
+if (empty($mode) || $mode != "nocomments" || $acomm == 0 || $articlecomm == 1) 
+include_once("modules/$module_name/comments.php");
 
 echo "</td><td>&nbsp;</td><td valign=\"top\">\n";
 
-if ($multilingual == 1) 
-    $querylang = "AND (blanguage='$currentlang' OR blanguage='')";
-else 
-    $querylang = "";
+$querylang = $multilingual == 1 ? "AND (blanguage='$currentlang' OR blanguage='')" : "";
 
 /* Determine if the article has attached a poll */
 if ($haspoll == 1) 
@@ -201,7 +189,7 @@ if ($haspoll == 1)
     $boxContent .= "<input type=\"hidden\" name=\"pollID\" value=\"".$pollID."\">";
     $boxContent .= "<input type=\"hidden\" name=\"forwarder\" value=\"".$url."\">";
     $row3 = $db->sql_fetchrow($db->sql_query("SELECT pollTitle, voters FROM ".$prefix."_poll_desc WHERE pollID='$pollID'"));
-    $pollTitle = stripslashes(check_html($row3["pollTitle"], "nohtml"));
+    $pollTitle = stripslashes((string) check_html($row3["pollTitle"], "nohtml"));
     $voters = $row3["voters"];
     $boxTitle = _ARTICLEPOLL;
     $boxContent .= "<span class=\"content\"><strong>$pollTitle</strong></span><br /><br />\n";
@@ -254,28 +242,25 @@ $url_result = $db->sql_query("select name, url from ".$prefix."_related where ti
 
 while ($row_eight = $db->sql_fetchrow($url_result)) 
 {
-    $name = stripslashes($row_eight["name"]);
-    $url = stripslashes($row_eight["url"]);
+    $name = stripslashes((string) $row_eight["name"]);
+    $url = stripslashes((string) $row_eight["url"]);
     $boxstuff .= "<strong><big>&middot;</big></strong>&nbsp;<a href=\"".$url."\" target=\"new\">".$name."</a><br />\n";
 }
 
 $db->sql_freeresult($url_result);
 
 $boxstuff .= "<hr noshade width=\"95%\" size=\"1\"><div align=\"center\"><strong>"._MOREABOUT."<strong><br /><a href=\"modules.php?name=Search&amp;topic=$topic\">[ $topictext ]</a><br />\n";
-$boxstuff .= "<hr noshade width=\"95%\" size=\"1\">"._NEWSBY."<br /><a href=\"modules.php?name=Search&amp;author=$aaid\">[ $aaid ]</a></div>\n";
+$boxstuff .= "<hr noshade width=\"95%\" size=\"1\">"._BLOG_BY."<br /><a href=\"modules.php?name=Search&amp;author=$aaid\">[ $aaid ]</a></div>\n";
 
 $boxstuff .= "</span><hr noshade width=\"95%\" size=\"1\"><div align=\"center\"><span class=\"content\"><strong>Current Blog Topic<br/> ( $topictext )</strong><br />\n";
 
 global $multilingual, $currentlang;
     
-if ($multilingual == 1) 
-$querylang = "AND (alanguage='$currentlang' OR alanguage='')"; /* the OR is needed to display stories who are posted to ALL languages */
-else 
-$querylang = "";
+$querylang = $multilingual == 1 ? "AND (alanguage='$currentlang' OR alanguage='')" : "";
 
-$row9 = $db->sql_fetchrow($db->sql_query("select sid, title from ".$prefix."_stories where topic='$topic' $querylang order by counter desc limit 0,1"));
-$topstory = intval($row9["sid"]);
-$ttitle = stripslashes(check_html($row9["title"], "nohtml")); 
+$row9 = $db->sql_fetchrow($db->sql_query("select sid, title from ".$prefix."_blogs where topic='$topic' $querylang order by counter desc limit 0,1"));
+$topstory = (int) $row9["sid"];
+$ttitle = stripslashes((string) check_html($row9["title"], "nohtml")); 
 
 $boxstuff .= "<hr noshade width=\"95%\" size=\"1\">Blog Subject<br /><a href=\"modules.php?name=$module_name&amp;file=article&amp;sid=$topstory\">$ttitle</a></span></div><br />\n";
 
@@ -283,99 +268,78 @@ themesidebox($boxtitle, $boxstuff, "newstopic");
 
 global $use_xtreme_voting;
 
-if ($use_xtreme_voting == true)
-{
-   if ($ratings != 0) 
+if ($use_xtreme_voting == true) {
+    if ($ratings != 0) 
+    {
+       $rate = substr($score / $ratings, 0, 4);
+       $r_image = round($rate);
+ 
+       if ($r_image == 1):
+         $the_image = the_rating('large',1,_BAD);
+       elseif ($r_image == 2):
+         $the_image = the_rating('large',2,_REGULAR);
+       elseif ($r_image == 3):
+         $the_image = the_rating('large',3,_GOOD);
+       elseif ($r_image == 4):
+         $the_image = the_rating('large',4,_VERYGOOD);
+       elseif ($r_image == 5):
+         $the_image = the_rating('large',5,_EXCELLENT);
+       endif;
+   } 
+   else 
    {
-      $rate = substr($score / $ratings, 0, 4);
-      $r_image = round($rate);
-
-      if ($r_image == 1):
-        $the_image = the_rating('large',1,_BAD);
-      elseif ($r_image == 2):
-        $the_image = the_rating('large',2,_REGULAR);
-      elseif ($r_image == 3):
-        $the_image = the_rating('large',3,_GOOD);
-      elseif ($r_image == 4):
-        $the_image = the_rating('large',4,_VERYGOOD);
-      elseif ($r_image == 5):
-        $the_image = the_rating('large',5,_EXCELLENT);
-      endif;
-  } 
-  else 
-  {
-    $rate = 0;
-    $the_image = "<br />";
-  }	
-}
-else
-{
-if ($ratings != 0) 
-{
+     $rate = 0;
+     $the_image = "<br />";
+   }
+} elseif ($ratings != 0) {
     $rate = substr($score / $ratings, 0, 4);
     $r_image = round($rate);
     $temp_image ="";
-	
-	if ($r_image == 1) 
-	{
-	   if (file_exists(NUKE_THEMES_DIR.$theme_name."/images/articles/stars-1.png"))
-	   {
-	     $temp_image = "themes/".$theme_name."/images/articles/stars-1.png";
-		 $the_image = "<img src=$temp_image><br />";
-	   }
-	   else
-	   $the_image = "<img src=\"images/articles/stars-1.gif\"><br />";
-    } 
-	else
-	if ($r_image == 2) 
-	{
-	   if (file_exists(NUKE_THEMES_DIR.$theme_name."/images/articles/stars-2.png"))
-	   {
-	     $temp_image = "themes/".$theme_name."/images/articles/stars-2.png";
-	     $the_image = "<img src=$temp_image><br />";
-	   }
-	   else
-	   $the_image = "<img src=\"images/articles/stars-2.gif\" ><br />";
-    } 
-	else
-	if ($r_image == 3) 
-	{
-	   if (file_exists(NUKE_THEMES_DIR.$theme_name."/images/articles/stars-3.png"))
-	   {
-	     $temp_image = "themes/".$theme_name."/images/articles/stars-3.png";
-	     $the_image = "<br /><br /><img src=$temp_image><br />";
-	   }
-	   else
-	   $the_image = "<img src=\"images/articles/stars-3.gif\" border=\"1\"><br />";
-    } 
-	else
-	if ($r_image == 4) 
-	{
-	   if (file_exists(NUKE_THEMES_DIR.$theme_name."/images/articles/stars-4.png"))
-	   {
-	     $temp_image = "themes/".$theme_name."/images/articles/stars-4.png";
-	     $the_image = "<img src=$temp_image><br />";
-	   }
-	   else
-	   $the_image = "<img src=\"images/articles/stars-4.gif\"><br />";
-    } 
-	else
-	if ($r_image == 5) 
-	{
-	if (file_exists(NUKE_THEMES_DIR.$theme_name."/images/articles/stars-5.png"))
-	{
-	  $temp_image = "themes/".$theme_name."/images/articles/stars-5.png";
-	  $the_image = "<img src=$temp_image><br />";
-	}
-	else
-	$the_image = "<img src=\"images/articles/stars-5.gif\"><br />";
+    if ($r_image == 1) {
+        if (file_exists(NUKE_THEMES_DIR.$theme_name."/images/articles/stars-1.png"))
+    	   {
+    	     $temp_image = "themes/".$theme_name."/images/articles/stars-1.png";
+    		 $the_image = "<img src=$temp_image><br />";
+    	   }
+    	   else
+    	   $the_image = "<img src=\"images/articles/stars-1.gif\"><br />";
+    } elseif ($r_image == 2) {
+        if (file_exists(NUKE_THEMES_DIR.$theme_name."/images/articles/stars-2.png"))
+    	   {
+    	     $temp_image = "themes/".$theme_name."/images/articles/stars-2.png";
+    	     $the_image = "<img src=$temp_image><br />";
+    	   }
+    	   else
+    	   $the_image = "<img src=\"images/articles/stars-2.gif\" ><br />";
+    } elseif ($r_image == 3) {
+        if (file_exists(NUKE_THEMES_DIR.$theme_name."/images/articles/stars-3.png"))
+    	   {
+    	     $temp_image = "themes/".$theme_name."/images/articles/stars-3.png";
+    	     $the_image = "<br /><br /><img src=$temp_image><br />";
+    	   }
+    	   else
+    	   $the_image = "<img src=\"images/articles/stars-3.gif\" border=\"1\"><br />";
+    } elseif ($r_image == 4) {
+        if (file_exists(NUKE_THEMES_DIR.$theme_name."/images/articles/stars-4.png"))
+    	   {
+    	     $temp_image = "themes/".$theme_name."/images/articles/stars-4.png";
+    	     $the_image = "<img src=$temp_image><br />";
+    	   }
+    	   else
+    	   $the_image = "<img src=\"images/articles/stars-4.gif\"><br />";
+    } elseif ($r_image == 5) {
+        if (file_exists(NUKE_THEMES_DIR.$theme_name."/images/articles/stars-5.png"))
+       	{
+       	  $temp_image = "themes/".$theme_name."/images/articles/stars-5.png";
+       	  $the_image = "<img src=$temp_image><br />";
+       	}
+       	else
+       	$the_image = "<img src=\"images/articles/stars-5.gif\"><br />";
     }
-} 
-else 
+} else 
 {
     $rate = 0;
     $the_image = "<br />";
-}
 }
 
 if ($use_xtreme_voting == true)
@@ -461,12 +425,13 @@ else
 $ratecontent .= "<input type=\"submit\" value=\""._CASTMYVOTE."\"></form><br />";
 $ratecontent .= "<img src=\"modules/Blogs/images/blockspacer.png\" alt=\"\" width=\"10\" height=\"1\" ></div>";
 
-themesidebox($ratetitle, $ratecontent, "newsvote");
+themesidebox($ratetitle, $ratecontent, "blogsvote");
 
 $optiontitle = ""._OPTIONS."";
 $optionbox = "<br />";
-$optionbox .= '&nbsp;<a href="modules.php?name='.the_module().'&amp;file=print&amp;sid='.$sid.'"><i class="fa fa-print"></i></a>&nbsp;<a href="modules.php?name='.the_module().'&amp;file=print&amp;sid='.$sid.'">'._PRINTER.'</a><br />'."\n";
-$optionbox .= '&nbsp;<a href="modules.php?name='.the_module().'&amp;file=friend&amp;op=FriendSend&amp;sid='.$sid.'"><i class="fa fa-envelope"></i></a> <a href="modules.php?name='.the_module().'&amp;file=friend&amp;op=FriendSend&amp;sid='.$sid.'">'._FRIEND.'</a><br /><br />'."\n";
+$optionbox .= '&nbsp;<a href="modules.php?name='.the_module().'&amp;file=print&amp;sid='.$sid.'"><i class="fa fa-print"></i></a>&nbsp;<a 
+               href="modules.php?name='.the_module().'&amp;file=print&amp;sid='.$sid.'">'._PRINTER_FRIENDLY_BLOG_POST_VIEW.'</a><br />'."\n";
+$optionbox .= '&nbsp;<a href="modules.php?name='.the_module().'&amp;file=friend&amp;op=FriendSend&amp;sid='.$sid.'"><i class="fa fa-envelope"></i></a> <a href="modules.php?name='.the_module().'&amp;file=friend&amp;op=FriendSend&amp;sid='.$sid.'">'._SEND_BLOG_TO_FRIEND.'</a><br /><br />'."\n";
 
 if (is_mod_admin($module_name)) 
 {
@@ -478,4 +443,4 @@ themesidebox($optiontitle, $optionbox, "newsopt");
 echo "</td></tr></table>\n";
 
 include_once(NUKE_BASE_DIR.'footer.php');
-?>
+

@@ -40,7 +40,7 @@ $dbhost = 'localhost';
 | The name of your database that holds your tables        |
 |                                                         |
 ---------------------------------------------------------*/
-$dbname = 'database_name_goes_here';
+$dbname = 'nukescripts_db';
 
 /*----[ $dbuname ] ---------------------------------------
 |                                                         |
@@ -48,14 +48,14 @@ $dbname = 'database_name_goes_here';
 | permissions                                             |
 |                                                         |
 ---------------------------------------------------------*/
-$dbuname = 'database_user_name_goes_here';
+$dbuname = 'nukescripts_db';
 
 /*----[ $dbpass ] ----------------------------------------
 |                                                         |
 | The password associated with your db usersname          |
 |                                                         |
 ---------------------------------------------------------*/
-$dbpass = 'data_base_user_password_goes_here';
+$dbpass = '';
 
 /*----[ $dbtype ] ----------------------------------------
 |                                                         |
@@ -68,7 +68,7 @@ $dbpass = 'data_base_user_password_goes_here';
 | Default: mysqli                                         |
 |                                                         |
 ---------------------------------------------------------*/
-$dbtype = 'mysqli';
+$dbtype = 'MySQLi';
 
 /*----[ $prefix ] ----------------------------------------
 |                                                         |
@@ -178,4 +178,5 @@ $persistency = false;
 /* Thanks for choosing PHP-Nuke Titanium, we hope you enjoy using it! */
 /*                                                                    */
 /**********************************************************************/
+
 ?>

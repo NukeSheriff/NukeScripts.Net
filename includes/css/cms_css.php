@@ -1,12 +1,199 @@
 <?php
-#---------------------------------------------------------------------------------------#
-# HEADER FLYKIT CSS                                                                     #
-#---------------------------------------------------------------------------------------#
-echo "\n\n/* includes/css/cms_css.php Fly Kit for PHP-Nuke Titanium - Design Themes On The Fly */\n"; 
-echo "/* When we are done we will move this code to style.css */\n\n";
-global $br, $fieldset_color, $fieldset_border_width, $digits_color;
+echo "/* includes/css/cms_css.php Fly Kit for PHP-Nuke Titanium - Design Themes On The Fly */\n"; 
+echo "/* When we are done we will move this code to style.css */\n";
+global $ThemeSel, $br, $fieldset_color, $fieldset_border_width, $digits_color, $poweredby_color, $poweredby_hover_color;
 $br = '<div align="center" style="padding-top:2px;"></div>';
 ?>
+/**
+ * Stylesheet for the Titanium Core Theme
+ *
+ * @filename:  cms_css.php
+ * @author  :  TheGhost
+ * @version :  3.0
+ * @date    :  11/22/2022 (DD/MM/YYY)
+ * @license :  Copyright (c) 2022 The 86it Developers Network under the MIT license
+ * @notes   :  n/a
+ *
+ * -- -------------------------------------------------------------------
+ * \/ STYLESHEET NAVIGATION
+ * -- -------------------------------------------------------------------
+ *  GLOBAL CMS CSS - Used Site Wide for Every Theme
+ *  1.  Google Site Map Lock Colors and Settings
+ *  2.  Global copyright Modal  
+ *  3.  Global Misc Buttons Settings
+ *  4.  Global Rounded Table Settings
+ *  5.  Powered By Setting for Footer
+ *  6.  Disclaimer Settings for Footer
+ *  7.  Alert Pulse
+ *  8.  Misc Start Banner Settings
+ *  9.  Body Start Settings
+ * --- -------------------------------------------------------------------
+ */
+
+/*
+ * 1. Google Site Map
+ *----------------------------------------
+ */
+.violet
+{
+text-align: center;
+color: violet;
+height: 23px;
+width: 15px;
+padding-bottom: 7px;
+}
+.green
+{
+text-align: center;
+color: green;
+height: 23px;
+width: 15px;
+padding-bottom: 7px;
+}
+.lime
+{
+text-align: center;
+color: lime;
+height: 23px;
+width: 15px;
+padding-bottom: 7px;
+}
+.aqua
+{
+text-align: center;
+color: aqua; 
+height: 23px;
+width: 15px;
+padding-bottom: 7px;
+}
+.brightred
+{
+text-align: center;
+color: #FF0000;
+height: 23px;
+width: 15px;
+padding-bottom: 7px;
+}
+.darkgreen
+{
+text-align: center;
+color: darkgreen;
+height: 23px;
+width: 15px;
+padding-bottom: 7px;
+}
+
+a.blueicon:link
+{
+font-size: 21px;
+color: white;
+vertical-align: middle;
+}
+
+.blueicon
+{
+font-size: 60px;
+color: blue;
+vertical-align: middle;
+}
+
+/*
+ * 2. Global copyright Modal
+ *----------------------------------------
+ */
+.modal-text1 {
+	font-size: 13px;
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+    text-shadow: 2px 2px grey;
+}
+
+.modal-text2 {
+	font-size: 15px;
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+    text-shadow: 2px 2px grey;
+}
+
+.modal-text3 {
+	font-size: 25px;
+    color: goldenrod;
+    text-decoration: none;
+    font-weight: bold;
+    text-shadow: 2px 2px black;
+}
+
+.modal-text4 {
+	font-size: 10px;
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.modal-body {
+#   background-image: url(themes/<?=$ThemeSel?>/backgrounds/1920x1080.png);
+}
+
+.modal-backdrop {
+}
+
+.modal .modal-popout-bg {
+    background-image: url(themes/<?=$ThemeSel?>/backgrounds/modal_theme_copyright_pop_bg.png); 
+    height: 560px;
+}
+
+.modal {
+
+}
+
+.modal-hidden {
+  display: none;
+}
+
+/* Make the media inside the box adapt the width of the parent */
+.modal img,
+.modal iframe,
+.modal video 
+{
+  max-width: 100%;
+  max-height: 560px;
+}
+
+/* Make the inner element relatively-positioned to contain the close button */
+.modal-inner {
+  position: relative;
+  padding: 10px;
+}
+
+/* Close button */
+.modal-close {
+  font-size: 10px;
+
+  /* Take it out of the flow, and align to the top-left corner */
+  position: absolute;
+  top: -10px;
+  right: -10px;
+
+  /* Size it up */
+  width: 24px;
+  height: 24px;
+
+  /* Text-alignment */
+  text-align: center;
+
+  /* Cosmetics */
+  color: #eee;
+  border-width: 0;
+  border-radius: 100%;
+  background-color: black;
+}
+
+/*
+ * 3. Global Misc Buttons Settings
+ *----------------------------------------
+ */
 .button {
   background-color: <?=$bgcolor3?>;
   border: none;
@@ -37,13 +224,16 @@ $br = '<div align="center" style="padding-top:2px;"></div>';
 .button4 {border-radius: 12px;}
 .button5 {border-radius: 50%;}
 
+/*
+ * 4. Global Rounded Table Settings
+ *----------------------------------------
+ */
 table.rounded-corners {
  /* Change these properties */
- --border: 1px solid black;
+ --border: 0px solid inherit;
  border-radius: 10px;
-
  /* Don't change these properties */
- border-spacing: 0;
+ border-spacing: 0px;
  border-collapse: separate;
  border: var(--border);
  overflow: hidden;
@@ -70,16 +260,87 @@ table.rounded-corners>tfoot:not(:last-child) {
  border-bottom: var(--border);
 }
 
-/*---------------------------------------------------------------*/
-/* Game Description START                                        */
-/*---------------------------------------------------------------*/
+/*
+ * 5. Powered By Setting for Footer
+ *----------------------------------------
+ */
+.poweredby {
+  color: <?=$poweredby_color?>;
+  font-size: 12px;
+  text-decoration: none;
+  padding: 4px;
+  text-shadow: 2px 2px 4px #000000;
+  background-color: transparent;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.poweredby:link {
+  color: <?=$poweredby_color?>;
+  font-size: 12px;
+  text-decoration: none;
+  padding: 4px;
+  text-shadow: 2px 2px 4px #000000;
+  background-color: transparent;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.poweredby:visited {
+  color: <?=$poweredby_color?>;
+  font-size: 12px;
+  text-decoration: transparent;
+  padding: 4px;
+  text-shadow: 2px 2px 4px #000000;
+  background-color: transparent;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.poweredby:active {
+  color: <?=$poweredby_color?>;
+  font-size: 12px;
+  text-decoration: transparent;
+  padding: 4px;
+  text-shadow: 2px 2px 4px #000000;
+  background-color: transparent;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.poweredby:focus {
+  color: <?=$poweredby_hover_color?>;
+  font-size: 12px;
+  text-decoration: none;
+  padding: 4px;
+  text-shadow: 2px 2px 4px #000000;
+  background-color: transparent;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.poweredby:hover {
+  color: <?=$poweredby_hover_color?>;
+  font-size: 12px;
+  text-decoration: none;
+  padding: 4px;
+  text-shadow: 2px 2px 4px #000000;
+  background-color: transparent;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/*
+ * 6. Disclaimer Settings for Footer
+ *----------------------------------------
+ */
 .disclaimer {
   color: goldenrod;
   font-size: 14px;
   text-decoration: none;
   padding: 4px;
   text-shadow: 2px 2px 4px #000000;
-  background-color: mone;
+  background-color: transparent;
   cursor: pointer;
   font-weight: bold;
 }
@@ -90,22 +351,15 @@ table.rounded-corners>tfoot:not(:last-child) {
   text-decoration: none;
   padding: 4px;
   text-shadow: 2px 2px 4px #000000;
-  background-color: mone;
+  background-color: transparent;
   cursor: pointer;
   font-weight: bold;
 }
 
-/*---------------------------------------------------------------*/
-/* Global CMS CSS                                                */
-/*                                                               */
-/* Designed and Coded By: Ernest Buffington aka TheGhost         */
-/* Coded On: 16th October, 2022                                  */
-/* Copyright © 2022 Brandon Maintenance Management               */
-/*                                                               */
-/* PLEASE STEAL AND/OR USE THIS CSS CODE                         */
-/* NO NEED FOR WRITTEN PERMISSION                                */
-/* I did not trade a goat for this code!                         */
-/*---------------------------------------------------------------*/
+/*
+ * 7. Alert Pulse
+ *----------------------------------------
+ */
 .alertPulse-css {
     animation: alertPulse 2s ease-out;
     animation-iteration-count: infinite;
@@ -113,6 +367,10 @@ table.rounded-corners>tfoot:not(:last-child) {
     background: #9A2727; /* you need this to specify a color to pulse to */
 }
 
+/*
+ * 8. Misc Start Banner Settings
+ *----------------------------------------
+ */
 .banner {
   font-family: system-ui;
   margin: 1rem;
@@ -120,15 +378,24 @@ table.rounded-corners>tfoot:not(:last-child) {
   font-size: 2.2rem;
   color: white;
   text-align: center;
+
   padding: 1rem 3rem;
+
 }
+
+/*
+ * 9. Misc Body Start Settings
+ *----------------------------------------
+ */
 body {
   padding: 0.1rem;
   background: #222222;
 }
-/*---------------------------------------------------------------*/
-/* Global CMS CSS                                                */
-/*---------------------------------------------------------------*/
+
+/*
+ * Arcade Text Settings
+ *----------------------------------------
+ */
 .arcade-admin-login{
 	font-size: 13px;
     color: white;
@@ -136,7 +403,6 @@ body {
     font-weight: bold;
     background-color: red;
     text-shadow: 2px 2px black;
-    
 }
 
 .arcadePink {
@@ -145,7 +411,7 @@ body {
   text-decoration: none;
   padding: 4px;
   text-shadow: 2px 2px 4px #000000;
-  background-color: mone;
+  background-color: transparent;
 }
 
 .arcadeArrow {
@@ -154,7 +420,7 @@ body {
   text-decoration: none;
   padding: 4px;
   text-shadow: 2px 2px 4px #000000;
-  background-color: mone;
+  background-color: transparent;
   cursor: none;
   font-weight: bold;
 }
@@ -166,7 +432,7 @@ body {
   padding-top: 5px;
   padding: 4px;
   text-shadow: 2px 2px 4px #000000;
-  background-color: mone;
+  background-color: transparent;
   cursor: auto;
   font-weight: bold;
 }
@@ -178,11 +444,10 @@ body {
   padding-top: 5px;
   padding: 4px;
   text-shadow: 2px 2px 4px #000000;
-  background-color: mone;
+  background-color: transparent;
   cursor: auto;
   font-weight: bold;
 }
-
 
 .arcadeUserName {
   color: white;
@@ -191,11 +456,10 @@ body {
   padding-top: 5px;
   padding: 4px;
   text-shadow: 2px 2px 4px #000000;
-  background-color: mone;
+  background-color: transparent;
   cursor: auto;
   font-weight: bold;
 }
-
 
 .arcadeTextWhite {
   color: white;
@@ -204,7 +468,7 @@ body {
   padding-top: 5px;
   padding: 4px;
   text-shadow: 2px 2px 4px #000000;
-  background-color: mone;
+  background-color: transparent;
   cursor: auto;
   font-weight: bold;
 }
@@ -218,7 +482,7 @@ body {
   text-decoration: none;
   padding: 4px;
   text-shadow: 2px 2px 4px #000000;
-  background-color: mone;
+  background-color: transparent;
   cursor: auto;
   font-weight: bold;
 }
@@ -229,21 +493,21 @@ body {
   text-decoration: none;
   padding: 4px;
   text-shadow: 2px 2px 4px #000000;
-  background-color: mone;
+  background-color: transparent;
   cursor: auto;
   font-weight: bold;
 }
+
 /*---------------------------------------------------------------*/
 /* Game Description END                                        */
 /*---------------------------------------------------------------*/
-
 .arcadeTextPink {
   color: #FF99FF;
   font-size: 15px;
   text-decoration: none;
   padding: 4px;
   text-shadow: 2px 2px 4px #000000;
-  background-color: mone;
+  background-color: transparent;
   cursor: none;
   font-weight: bold;
 }
@@ -254,7 +518,7 @@ body {
   text-decoration: none;
   padding: 4px;
   text-shadow: 2px 2px 4px #000000;
-  background-color: mone;
+  background-color: transparent;
   cursor: auto;
   font-weight: bold;
 }
@@ -265,7 +529,7 @@ body {
   text-decoration: none;
   padding: 4px;
   text-shadow: 2px 2px 4px #000000;
-  background-color: mone;
+  background-color: transparent;
   cursor: auto;
   font-weight: bold;
 }
@@ -276,7 +540,7 @@ body {
   text-decoration: none;
   padding: 4px;
   text-shadow: 2px 2px 4px #000000;
-  background-color: mone;
+  background-color: transparent;
   cursor: pointer;
   font-weight: bold;
 }
@@ -287,7 +551,7 @@ body {
   text-decoration: none;
   padding: 4px;
   text-shadow: 2px 2px 4px #000000;
-  background-color: mone;
+  background-color: transparent;
   cursor: pointer;
   font-weight: bold;
 }
@@ -298,7 +562,7 @@ body {
   text-decoration: none;
   padding: 4px;
   text-shadow: 2px 2px 4px #000000;
-  background-color: mone;
+  background-color: transparent;
   cursor: pointer;
   font-weight: bold;
 }
@@ -309,22 +573,21 @@ body {
   text-decoration: none;
   padding: 4px;
   text-shadow: 2px 2px 4px #000000;
-  background-color: mone;
+  background-color: transparent;
   cursor: pointer;
   font-weight: bold;
 }
 
-.popup:visted {
+.popup:visited {
   color: white;
   font-size: 13px;
   text-decoration: none;
   padding: 4px;
   text-shadow: 2px 2px 4px #000000;
-  background-color: mone;
+  background-color: transparent;
   cursor: pointer;
   font-weight: bold;
 }
-
 
 .clicktoplay {
   color: cyan;
@@ -332,7 +595,7 @@ body {
   text-decoration: none;
   padding: 4px;
   text-shadow: 2px 2px 4px #000000;
-  background-color: mone;
+  background-color: transparent;
   cursor: pointer;
   font-weight: bold;
 }
@@ -343,7 +606,7 @@ body {
   text-decoration: none;
   padding: 4px;
   text-shadow: 2px 2px 4px #000000;
-  background-color: mone;
+  background-color: transparent;
   cursor: pointer;
   font-weight: bold;
 }
@@ -354,7 +617,7 @@ body {
   text-decoration: none;
   padding: 4px;
   text-shadow: 2px 2px 4px #000000;
-  background-color: mone;
+  background-color: transparent;
   cursor: pointer;
   font-weight: bold;
 }
@@ -365,11 +628,10 @@ body {
   text-decoration: none;
   padding: 4px;
   text-shadow: 2px 2px 4px #000000;
-  background-color: mone;
+  background-color: transparent;
   cursor: pointer;
   font-weight: bold;
 }
-
 
 .arcadeCattitle {
   background-color: #8d7b4d;
@@ -379,7 +641,6 @@ body {
   padding: 4px;
   box-shadow: inset 1px 1px 3px #000;
   text-shadow: 2px 2px 4px #000000;
-
 }
 
 .arcadeCattitle:hover {
@@ -400,7 +661,6 @@ body {
   padding: 4px;
   box-shadow: inset 1px 1px 3px #000;
   text-shadow: 2px 2px 4px #000000;
-
 }
 
 .arcadeCattitle:visited {
@@ -408,7 +668,6 @@ body {
   font-size: 15px;
   text-decoration: none;
   text-transform: uppercase;
-
 }
 
 .arcade-admin-font{
@@ -419,7 +678,6 @@ body {
     font-weight: bold;
     outline: 0.1px solid white;
     background-color: red;
-    
 }
 
 a.arcade-admin-font:hover {
@@ -452,7 +710,6 @@ a.arcade-admin-font:visited {
     background-color: red;
 }
 
-
 .gensmall-visitorlog{
 	font-size: 11px;
 }
@@ -462,7 +719,69 @@ font.gensmall-visitorlog
   font-size: 11px;
 }
 
-img.rounded-corners-shout { 
+.gensmall-arcade {
+	font-size: 16px;
+}
+
+.arcade-nav {
+	font-size: 16px;
+}
+
+.menunowrap 
+{
+  white-space: nowrap;
+}
+
+.arcadeFieldsetTitle {
+  display: block; 
+  margin-left: 2px; 
+  margin-right: 2px; 
+  padding-top: 0.25em; 
+  padding-bottom: 0.625em; 
+  padding-left: 0.75em; 
+  padding-right: 0.75em; 
+  border: 2px groove (internal value);
+  border-radius: 8px;
+  color: #00FFFF;
+  border-color: #00FFFF; 
+  border-width: thin;
+  border-style: solid;
+  font-size: medium;
+  -webkit-border-radius: 1em;
+  -moz-border-radius: 1em;
+
+}
+
+.arcadeFieldset {
+  display: block; 
+  margin-left: 2px; 
+  margin-right: 2px; 
+  padding-top: 1.8em; 
+  padding-bottom: 0.625em; 
+  padding-left: 0.75em; 
+  padding-right: 0.75em; 
+  border: 2px groove (internal value);
+  border-radius: 8px;
+  color: #00FFFF;
+  border-color: pink; 
+  border-width: thin;
+  border-style: solid;
+  font-size: medium;
+  padding: 10px;
+  text-shadow: 2px 2px 4px #000000;
+  -webkit-border-radius: 1em;
+  -moz-border-radius: 1em;
+}
+
+legend {
+
+}
+
+/*
+ * Rounded Image Corners for Entire Site
+ *----------------------------------------
+ */
+ img.rounded-corners-shout { 
   border-radius: 3px;
 }
 
@@ -477,60 +796,6 @@ img.rounded-corners-header {
 
 img.rounded-corners-last-post { 
   border-radius: 9px; 
-}
-
-.gensmall-arcade {
-	font-size: 16px;
-}
-
-.arcade-nav {
-	font-size: 16px;
-}
-
-.arcadeFieldsetTitle {
-	display: block; 
-	margin-left: 2px; 
-	margin-right: 2px; 
-	padding-top: 0.25em; 
-	padding-bottom: 0.625em; 
-	padding-left: 0.75em; 
-	padding-right: 0.75em; 
-	border: 2px groove (internal value);
-
-   -webkit-border-radius: 8px;
-   -moz-border-radius: 8px;
-   border-radius: 8px;
-   color:cyan;
-  border-color: cyan; 
-  border-width: <?=$fieldset_border_width?>;
-  border-style: solid;
-  font-size: 16px;
-}
-
-.arcadeFieldset {
-	display: block; 
-	margin-left: 2px; 
-	margin-right: 2px; 
-	padding-top: 1.8em; 
-	padding-bottom: 0.625em; 
-	padding-left: 0.75em; 
-	padding-right: 0.75em; 
-	border: 2px groove (internal value);
-
-   -webkit-border-radius: 8px;
-   -moz-border-radius: 8px;
-   border-radius: 8px;
-   color:cyan;
-  border-color: pink; 
-  border-width: <?=$fieldset_border_width?>;
-  border-style: solid;
-  font-size: 16px;
-  padding: 10px;
-  text-shadow: 2px 2px 4px #000000;
-}
-
-legend {
-
 }
 
 img.rounded-corners-arcade { 
@@ -563,6 +828,16 @@ img.rounded-corners-arcade-center_block {
   width: 80px; 
 }
 
+
+img.rounded-corners-usercp_register {
+  border-radius: 9px;
+  width: 150px; 
+}
+
+/*
+ * W3 Settings
+ *----------------------------------------
+ */
 .w3-serif{font-family:serif}.w3-sans-serif{font-family:sans-serif}.w3-cursive{font-family:cursive}.w3-monospace{font-family:monospace}
 .w3-wide{letter-spacing:4px}
 .w3-image{max-width:100%;height:auto}img{vertical-align:middle}a{color:inherit}
@@ -619,7 +894,7 @@ img.rounded-corners-arcade-center_block {
 .w3-content,.w3-auto{margin-left:auto;margin-right:auto}.w3-content{max-width:980px}.w3-auto{max-width:1140px}
 .w3-cell-row{display:table;width:100%}.w3-cell{display:table-cell}
 .w3-cell-top{vertical-align:top}.w3-cell-middle{vertical-align:middle}.w3-cell-bottom{vertical-align:bottom}
-.w3-hide{display:none!important}.w3-show-block,.w3-show{display:block!important}.w3-show-inline-block{display:inline-block!important}
+w3-hide{display:none!important}.w3-show-block,.w3-show{display:block!important}.w3-show-inline-block{display:inline-block!important}
 @media (max-width:1205px){.w3-auto{max-width:95%}}
 @media (max-width:600px){.w3-modal-content{margin:0 10px;width:auto!important}.w3-modal{padding-top:30px}
 .w3-dropdown-hover.w3-mobile .w3-dropdown-content,.w3-dropdown-click.w3-mobile .w3-dropdown-content{position:relative}	
@@ -770,5 +1045,3 @@ img.rounded-corners-arcade-center_block {
 .w3-border-pale-red,.w3-hover-border-pale-red:hover{border-color:#ffe7e7!important}.w3-border-pale-green,.w3-hover-border-pale-green:hover{border-color:#e7ffe7!important}
 .w3-border-pale-yellow,.w3-hover-border-pale-yellow:hover{border-color:#ffffcc!important}.w3-border-pale-blue,.w3-hover-border-pale-blue:hover{border-color:#e7ffff!important}
 <?
-
-

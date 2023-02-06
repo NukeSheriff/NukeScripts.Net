@@ -21,7 +21,7 @@ if (!defined('MODULE_FILE')) {
 
 if (is_admin())
 {
-    if ($popup != "1"){
+    if (!isset($popup)){
         $module_name = basename(dirname(__FILE__));
         require("modules/".$module_name."/nukebb.php");
     }
@@ -71,7 +71,7 @@ if (is_admin())
               
        }
 
-              if (!($row1['group_id'] != ''))
+              if (!isset($row1['group_id']) && $row1['group_id'] != '')
               {
                   
              $sql2 = "SELECT MAX(group_id) AS total

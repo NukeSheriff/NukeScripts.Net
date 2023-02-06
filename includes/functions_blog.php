@@ -53,11 +53,11 @@ function blog_save_config($config_name, $config_value){
 function get_blog_configs(){
     global $prefix, $db, $cache;
     static $config;
-    if(isset($config)) return $config;
+    //if(isset($config)) return $config;
 /*****[BEGIN]******************************************
  [ Base:    Caching System                     v3.0.0 ]
  ******************************************************/
-    if(($config = $cache->load('blogs', 'config')) === false) {
+   // if(($config = $cache->load('blogs', 'config')) === false) {
 /*****[END]********************************************
  [ Base:    Caching System                     v3.0.0 ]
  ******************************************************/
@@ -69,8 +69,8 @@ function get_blog_configs(){
 /*****[BEGIN]******************************************
  [ Base:    Caching System                     v3.0.0 ]
  ******************************************************/
-        $cache->save('blogs', 'config', $config);
-    }
+     //   $cache->save('blogs', 'config', $config);
+    //}
 /*****[END]********************************************
  [ Base:    Caching System                     v3.0.0 ]
  ******************************************************/
@@ -81,7 +81,7 @@ function automated_blogs()
 {
     global $prefix, $multilingual, $currentlang, $db;
     
-	$result = $db->sql_query('SELECT * FROM '.$prefix.'_autonews WHERE datePublished<="'.date('Y-m-d G:i:s', time()).'"');
+	$result = $db->sql_query('SELECT * FROM '.$prefix.'_blogs_autoblog WHERE datePublished<="'.date('Y-m-d G:i:s', time()).'"');
     
 	while ($row2 = $db->sql_fetchrow($result)) 
 	{
@@ -90,7 +90,7 @@ function automated_blogs()
         $bodytext = addslashes($row2['bodytext']);
         $notes = addslashes($row2['notes']);
 
-        $db->sql_query("INSERT INTO ".$prefix."_stories VALUES (NULL, 
+        $db->sql_query("INSERT INTO ".$prefix."_blogs VALUES (NULL, 
 		                                              '$row2[catid]', 
 													    '$row2[aid]', 
 														    '$title', 
@@ -116,9 +116,8 @@ function automated_blogs()
     }
     if ($db->sql_numrows($result)) 
 	{
-        $db->sql_query('DELETE FROM '.$prefix.'_autonews WHERE datePublished<="'.date('Y-m-d G:i:s', time()).'"');
+        $db->sql_query('DELETE FROM '.$prefix.'_blogs_autoblog WHERE datePublished<="'.date('Y-m-d G:i:s', time()).'"');
     }
     $db->sql_freeresult($result);
 }
 
-?>

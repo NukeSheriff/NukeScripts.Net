@@ -17,9 +17,27 @@ print "</div><hr />";
 	# start SIMPLE CODE TEST
 	print '<div align="center"><h1>Hello World</h1></div>';
 	
+	if (function_exists('sys_get_temp_dir') && is_writable(sys_get_temp_dir()))
+    {
+	  //echo sys_get_temp_dir() . PHP_EOL;
+	  //mkdir(sys_get_temp_dir() . 'some_dir');
+	  
+	  $tmpPath = realpath(__DIR__.'/../app/tmp');
+      ini_set('sys_temp_dir', $tmpPath);
+	  echo sys_get_temp_dir() . PHP_EOL; // Outputs: /foo/bar
+	  
+	  //print_r(ini_get_all());
+	  
+      
+    }
+	
 	# load the mobile detect system
-	$detect = new Mobile_Detect;
+	//$detect = new Mobile_Detect;
+	$detect = new \Detection\MobileDetect;
     
+	if(!isset($userAgent))
+	$userAgent = '';
+	
 	$this_users_agen_string = $detect->setUserAgent($userAgent);
 	
 	echo $this_users_agen_string.'<br>';
@@ -116,6 +134,16 @@ print "</div><hr />";
       $_SESSION['isMobile'] = $detect->isMobile();
     }
     # end SIMPLE CODE TEST
+	
+	$gamename = 'asteroids';
+	
+	$result = $db->sql_query("SELECT `game_id` FROM `".$prefix."_bbgames` WHERE `game_scorevar`='$gamename'");
+	
+	$row = $db->sql_fetchrow($result);
+    $gid = intval($row['game_id']);
+	
+	echo 'Game ID for Asteroids '.$gid.'';
+	
 ###########################################################################################################################################################################			
 # TEST CODE GOES HERE - END
 #################################################[ SandBox Example Source Code ]###########################################################################################
