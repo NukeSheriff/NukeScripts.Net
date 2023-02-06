@@ -1,24 +1,20 @@
 <a href="https://www.php-nuke-titanium.86it.us" rel="nofollow"><img src="/images/github/github_rip_open2.png" alt="PHP-NUke Titanium" style="max-width: 100%;"></a>
 
-<h2>Changes in PHP-Nuke Titanium v4.0.3</h2>
-<p>Support Website https://www.php-nuke-titanium.86it.us <-(This Code Running Live) SIGN UP AND CHECK IT OUT!!!</p>
+<h2>Changes in NukeScripts.Net</h2>
+<p>Main Website https://www.nukescripts.86it.us <-(This Code Running Live) SIGN UP AND CHECK IT OUT!!!</p>
 
 
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fernestbuffington%2FPHP-Nuke.Titanium.Dev.4.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fernestbuffington%2FPHP-Nuke.Titanium.Dev.4?ref=badge_shield)  [![Codacy Badge](https://app.codacy.com/project/badge/Grade/e5300f0dccdb4bcc9b7bdbc5d6e65f50)](https://www.codacy.com/gh/ernestbuffington/PHP-Nuke.Titanium.Dev.4/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ernestbuffington/PHP-Nuke.Titanium.Dev.4&amp;utm_campaign=Badge_Grade)
 
-<h2>PHP-Nuke Titanium v4.0.3 2022 Nightly Build Repo</h2>
+<h2>We are running PHP-Nuke Titanium v4.0.3 2022 from the Nightly Build Repo</h2>
 
-<p>This code is running live at https://www.php-nuke-titanium.86it.us</p>
+<p>The original code is running live at https://www.php-nuke-titanium.86it.us</p>
 
 <h2>PHP-Nuke Titanium v4.0.3 Core Developers</h2>
 
 <ul>
+	<li>Bob Marion (Lead Core Developer)</li>
 	<li>Ernest Allen Buffington (Lead Core Developer)</li>
-	<li>Gaz "Wiggy" Jones (Core Developer)</li>
-	<li>Winston Terrance Wolfe</li>
-	<li>Truman Scott Buffington</li>
-	<li>Bob Marion</li> 
-	<li>Sebastian Scott Buffington</li>
 </ul>
 
 <h2>PHP-Nuke Titanium v4.0.3 Core Contributors</h2>
@@ -38,6 +34,7 @@
 	<li>ScottyBcoder</li>
 	<li>UniKCode</li>
 	<li>Cobalt74</li>
+	<li>GazJ</li>
 </ul>
 
 <h2>PHP-Nuke Titanium v4.0.3 Flash Game, and Movie Support for 2022</h2>
